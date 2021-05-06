@@ -38,10 +38,40 @@ class mysql:
          print('Error:Unable to fetch data.')
          mysqldb.close()
 
+     # Function to Update Data
+    def updatadata(self):
+             mysqldb = mysqlconnect()
+             mycursor = mysqldb.cursor()
+             sql_query1 = "UPDATE employee_payroll SET salary=400000 WHERE name='James'"
+             sql_query2 = "SELECT * FROM employee_payroll WHERE name='bill'"
+             try:
+                 mycursor.execute(sql_query1)
+                 mysqldb.commit()
+                 logger.info('Record Updated successfully')
+             except Exception:
+                 logger.error("Error! unable to update data")
+                 mysqldb.rollback()
+             mysqldb.close()
 
+    # Function to Delete Data
+    def deletedata(self):
+             mysqldb = mysqlconnect()
+             mycursor = mysqldb.cursor()
+             sql_query = "DELETE FROM employee_payroll WHERE name='chaile'"
+             try:
+                 mycursor.execute(sql_query)
+                 mysqldb.commit()
+                 logger.info('Record Deteted Successfully')
+             except Exception:
+                 logger.error("Error! unable to update data")
+                 mysqldb.rollback()
+             mysqldb.close()
 
 
 # Driver Function
 if __name__ == "__main__":
     logger.setLevel(logging.INFO)
+    display()
+    updatadata()
+    deletedata()
     display()
