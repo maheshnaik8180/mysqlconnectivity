@@ -41,6 +41,16 @@ class DBconnection:
         except Exception:
                 logger.error('Error:Unable to fetch data.')
 
+    def InsertRecord(self):
+        query = "INSERT INTO employee_payroll(id, name, gender, salary, start) VALUES(6, 'vikas', 'M', 400000, '2018-06-05');"
+        try:
+            self.cursor.execute(query)
+            self.conn.commit()
+            logger.info('Record Inserted Successfully')
+        except Exception:
+            logger.error("Error! unable to insert data")
+            self.conn.rollback()
+
     def updatadata(self):
         query1 = "UPDATE employee_payroll SET salary=30000 WHERE name='bill'"
         query2 = "SELECT * FROM employee_payroll WHERE name='James'"
@@ -67,6 +77,7 @@ class DBconnection:
 # Drivers Function
 dbconn = DBconnection(db_host, db_user, db_pass, db_name)
 dbconn.display()
+dbconn.InsertRecord()
 dbconn.updatadata()
 dbconn.deletedata()
 
